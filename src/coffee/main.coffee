@@ -6,7 +6,7 @@ String.prototype.replaceAll = (before, after) -> this.split(before).join(after)
 
     # 7〜19時の25分と55分をコールバックでかえす
     forInterval = (callback) ->
-      for i in [7..19]
+      for i in [6..23]
         i = putZero(i)
         callback(i, 25)
         callback(i, 55)
@@ -104,5 +104,4 @@ String.prototype.replaceAll = (before, after) -> this.split(before).join(after)
       # ブラウザの保存を発火させない
       e.returnValue = false
   )
-
 )()
