@@ -104,4 +104,23 @@ String.prototype.replaceAll = (before, after) -> this.split(before).join(after)
       # ブラウザの保存を発火させない
       e.returnValue = false
   )
+
+  setInterval(()->
+    now = new Date()
+    now.setSeconds(0)
+    now.setMilliseconds(0)
+    min = now.getMinutes()
+    if min < 25
+      now.setMinutes(25)
+    else if(min < 55)
+      now.setMinutes(55)
+    else
+      now.setHours(now.getHours() + 1)
+      now.setMinutes(25)
+    next = now
+    rest = next.getTime() - Date.now()
+    sec = Math.floor(rest / 1000)
+    text = 'ふりかえりまで<br>あと ' + (if sec < 60 then sec + '秒' else Math.floor(sec / 60) + '分')
+    document.getElementById('restTime').innerHTML = text
+  ,1000)
 )()
