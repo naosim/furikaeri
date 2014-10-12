@@ -7,28 +7,34 @@
   padding: 0px;
   margin: 0px;
   box-sizing: border-box;
-  color: #333;
+  color: #888;
 }
 
 canvas {
   background: #5588ff;
 }
 body {
-  padding: 24px;
+  width: 100%;
   position: absolute;
 }
 td {
-  border-style: solid;
+  border-style: hidden hidden solid;
   border-color: #ccc;
   border-width: 1px;
   font-weight: bold;
-  color: #666;
 }
 td.time {
   padding: 12px;
 }
 h1 {
-  line-height: 1.2em;
+  font-size: 24px;
+  padding:12px;
+  padding-left: 24px;
+  padding-right: 24px;
+  background: #e42;
+  color: #fff;
+  line-height: 1.6em;
+  display: block;
 }
 button {
   padding-top: 8px;
@@ -37,12 +43,17 @@ button {
   padding-right: 24px;
 }
 b {
-  color: #03a
+  color: #e42;
 }
 .description {
   margin-bottom: 16px;
   margin-left:2px;
-  line-height: 1.2em;
+}
+.main {
+  margin: auto;
+  padding: 24px;
+  padding-top: 0px;
+  width:480px;
 }
 textarea {
   width: 240px;
@@ -55,11 +66,13 @@ textarea {
 </style>
 <body>
   <h1>Looking Back</h1>
-  <div class="description"><br><b>30分</b>ごとに<br><b>記録</b>と<b>ふりかえり</b>をしましょう。</div>
-  <table></table>
-  <button id="visibleAllButton">すべての時間を表示</button>
-  <button id="visibleNowButton">現在のみ表示</button>
-  <button id="saveButton">save</button> ※Ctrl + S でもセーブできます。
+  <div class="main">
+    <div class="description"><br><b>30分</b>ごとに<br><b>記録</b>と<b>ふりかえり</b>をしましょう。</div>
+    <table></table>
+    <button id="visibleAllButton">すべての時間を表示</button>
+    <button id="visibleNowButton">現在のみ表示</button>
+    <button id="saveButton">save</button> ※Ctrl + S でもセーブできます。
+  </div>
 </body>
 
 <script id="rowTemplate" type="text/html">
