@@ -5,14 +5,17 @@
     -i: interval[分] デフォルト5分
     最終引数 アップデートがあった場合に実行するコマンド
 */
+
+// 引数取得
 var shFile = process.argv[process.argv.length - 1];
 var interval = 5;
 for(var i = 0; i < process.argv.length - 1; i++) {
   if(process.argv[i] == '-i') {
-    i++
-    interval = parseInt(process.argv[i], 10);
+    interval = parseInt(process.argv[++i], 10);
   }
 }
+
+// gitのアップデートをチェックするコマンド
 var isUpdateCmd = '';
 isUpdateCmd += 'before=`git log --pretty=format:"%h" -1`\n';
 isUpdateCmd += 'git fetch\n';
@@ -28,15 +31,15 @@ var checkUpdate = function(updateAction) {
   exec(isUpdateCmd, function(err, stdout, stderr) {
     if (!err) {
       console.log(new Date() + ' update');
-      updateAction()
+      updateAction();
     } else {
       console.log(new Date() + ' none');
     }
-  })
+  });
 };
 
 var runScript = function() {
-  console.log('bash ' + shFile)
+  console.log('bash ' + shFile);
   exec('bash ' + shFile, function(err, stdout, stderr) {
     if (!err) {
       console.log(new Date() + ' ' + stdout);
@@ -44,7 +47,7 @@ var runScript = function() {
     } else {
       console.log(new Date() + ' script error');
     }
-  })
+  });
 };
 
 var run = function() {
