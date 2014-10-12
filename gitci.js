@@ -13,10 +13,19 @@ for(var i = 0; i < process.argv.length - 1; i++) {
     interval = parseInt(process.argv[i], 10);
   }
 }
+var isUpdateCmd = '';
+isUpdateCmd += 'before=`git log --pretty=format:"%h" -1`\n';
+isUpdateCmd += 'git fetch\n';
+isUpdateCmd += 'after=`git log --pretty=format:"%h" origin/master -1`\n';
+isUpdateCmd += 'if test $before != $after; then\n';
+isUpdateCmd += '  exit 0\n';
+isUpdateCmd += 'else\n';
+isUpdateCmd += '  exit 1\n';
+isUpdateCmd += 'fi\n';
 
 var exec = require('child_process').exec;
 var checkUpdate = function(updateAction) {
-  exec('bash isupdate.sh', function(err, stdout, stderr) {
+  exec(cmd, function(err, stdout, stderr) {
     if (!err) {
       console.log(new Date() + ' update');
       updateAction()
