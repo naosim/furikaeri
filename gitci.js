@@ -25,7 +25,7 @@ isUpdateCmd += 'fi\n';
 
 var exec = require('child_process').exec;
 var checkUpdate = function(updateAction) {
-  exec(cmd, function(err, stdout, stderr) {
+  exec(isUpdateCmd, function(err, stdout, stderr) {
     if (!err) {
       console.log(new Date() + ' update');
       updateAction()
