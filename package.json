@@ -1,0 +1,16 @@
+{
+  "name": "CoffeeMaker",
+  "version": "0.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "docco": "^0.6.3",
+    "express": "^4.9.4"
+  }
+}

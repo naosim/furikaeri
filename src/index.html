@@ -1,0 +1,69 @@
+<!doctype html>
+<meta name="viewport" content="width=256,user-scalable=no">
+<meta charset="utf-8">
+<title>ActionBear</title>
+<style>
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+  color: #333;
+}
+
+canvas {
+  background: #5588ff;
+}
+body {
+  padding: 24px;
+  position: absolute;
+}
+td {
+  border-style: solid;
+  border-color: #ccc;
+  border-width: 1px;
+  font-weight: bold;
+  color: #666;
+}
+td.time {
+  padding: 12px;
+}
+h1 {
+  line-height: 1.2em;
+}
+button {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+b {
+  color: #03a
+}
+.description {
+  margin-bottom: 16px;
+  margin-left:2px;
+  line-height: 1.2em;
+}
+textarea {
+  width: 240px;
+  height: 160px;
+  font-size: 14px;
+  padding: 4px;
+  color:#555;
+  margin-top: 0px;
+}
+</style>
+<body>
+  <h1>Looking Back</h1>
+  <div class="description"><br><b>30分</b>ごとに<br><b>記録</b>と<b>ふりかえり</b>をしましょう。</div>
+  <table></table>
+  <button id="visibleAllButton">すべての時間を表示</button>
+  <button id="visibleNowButton">現在のみ表示</button>
+  <button id="saveButton">save</button> ※Ctrl + S でもセーブできます。
+</body>
+
+<script id="rowTemplate" type="text/html">
+  <tr id="$$rowId$$"><td class="time">$$time$$</td><td>$$content$$</td></tr>
+</script>
+
+<script src="js/main.js"></script>
