@@ -35,6 +35,9 @@ h1 {
   color: #fff;
   line-height: 1.6em;
   display: block;
+  border-style: hidden hidden solid;
+  border-width: 1px;
+  border-color: #c20;
 }
 
 button {
@@ -49,6 +52,19 @@ b {
   color: #e42;
 }
 
+footer {
+  background: #f0f0f0;
+  padding: 12px;
+  padding-left: 24px;
+  padding-right: 24px;
+  font-size: 12px;
+  text-align: right;
+  color: #999;
+}
+footer a {
+  color: #999;
+}
+
 .description {
   margin-bottom: 16px;
   margin-left:2px;
@@ -58,7 +74,7 @@ b {
   margin: auto;
   padding: 24px;
   padding-top: 0px;
-  width:480px;
+  width:460px;
 }
 
 textarea {
@@ -71,13 +87,18 @@ textarea {
 }
 #restTime {
   position: absolute;
-  top: 18px;
+  top: 4px;
   right: 24px;
   color: #fff;
   font-size: 12px;
   font-weight: none;
   line-height:16px;
   text-align: right;
+  padding: 4px;
+  padding-left: 12px;
+  border-style: hidden hidden hidden solid;
+  border-width: 1px;
+  border-color: #d31;
 }
 </style>
 <body>
@@ -90,6 +111,10 @@ textarea {
     <button id="visibleNowButton">現在のみ表示</button>
     <button id="saveButton">save</button> ※Ctrl + S でもセーブできます。
   </div>
+
+  <footer>
+    Sprint 0 | Source Code: <a href="https://github.com/naosim/furikaeri" target="_blank">github</a>
+  </footer>
 </body>
 
 <script id="rowTemplate" type="text/html">

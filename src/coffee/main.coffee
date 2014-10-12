@@ -1,9 +1,8 @@
 String.prototype.replaceAll = (before, after) -> this.split(before).join(after)
 
 (() ->
+  putZero = (num) -> if parseInt(num, 10) < 10 then '0' + num else num
   createTableRowsView = ->
-    putZero = (num) -> if parseInt(num, 10) < 10 then '0' + num else num
-
     # 7〜19時の25分と55分をコールバックでかえす
     forInterval = (callback) ->
       for i in [6..23]
@@ -105,22 +104,26 @@ String.prototype.replaceAll = (before, after) -> this.split(before).join(after)
       e.returnValue = false
   )
 
+  # 画面右上の時間表示部分
   setInterval(()->
+    next = ( ->
+      result = new Date()
+      result.setSeconds(0)
+      result.setMilliseconds(0)
+      min = result.getMinutes()
+      if min < 25
+        result.setMinutes(25)
+      else if(min < 55)
+        result.setMinutes(55)
+      else
+        result.setHours(result.getHours() + 1)
+        result.setMinutes(25)
+      return result
+    )()
     now = new Date()
-    now.setSeconds(0)
-    now.setMilliseconds(0)
-    min = now.getMinutes()
-    if min < 25
-      now.setMinutes(25)
-    else if(min < 55)
-      now.setMinutes(55)
-    else
-      now.setHours(now.getHours() + 1)
-      now.setMinutes(25)
-    next = now
-    rest = next.getTime() - Date.now()
+    rest = next.getTime() - now.getTime()
     sec = Math.floor(rest / 1000)
-    text = 'ふりかえりまで<br>あと ' + (if sec < 60 then sec + '秒' else Math.floor(sec / 60) + '分')
+    text = "#{putZero(now.getHours())}:#{putZero(now.getMinutes())}<br>" + 'ふりかえりまで<br>あと ' + (if sec < 60 then sec + '秒' else Math.floor(sec / 60) + '分')
     document.getElementById('restTime').innerHTML = text
   ,1000)
 )()
