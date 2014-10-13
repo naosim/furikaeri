@@ -102,6 +102,38 @@ String.prototype.replaceAll = (before, after) -> this.split(before).join(after)
       save: (dataList) -> localStorage[DATA_LIST_KEY] = JSON.stringify(dataList)
     }
 
+  # 画面右上の時間表示部分
+  updateTimeDisplay = ->
+    next = ( ->
+      result = new Date()
+      result.setSeconds(0)
+      result.setMilliseconds(0)
+      min = result.getMinutes()
+      if min < 25
+        result.setMinutes(25)
+      else if(min < 55)
+        result.setMinutes(55)
+      else
+        result.setHours(result.getHours() + 1)
+        result.setMinutes(25)
+      return result
+    )()
+    now = new Date()
+    rest = next.getTime() - now.getTime()
+    sec = Math.floor(rest / 1000)
+    text = "#{putZero(now.getHours())}:#{putZero(now.getMinutes())}<br>" + 'ふりかえりまで<br>あと ' + (if sec < 60 then sec + '秒' else Math.floor(sec / 60) + '分')
+    document.getElementById('restTime').innerHTML = text
+
+  updateLookingBackTimeNotification = ->
+    getIsLookingBackTime = ->
+      minutes = new Date().getMinutes()
+      return (25 <= minutes && minutes <= 30) || 55 <= minutes
+    isLookingBackTime = getIsLookingBackTime()
+    label = document.getElementById('looking-back-time')
+    labelVisible = label.className != 'none'
+    if(isLookingBackTime != labelVisible)
+      label.className = if isLookingBackTime then '' else 'none'
+
   save = -> dataIO.save(tableRowsView.getData())
   startAutoSave = (saveInterval) -> setInterval((-> save()), saveInterval)
 
@@ -128,37 +160,8 @@ String.prototype.replaceAll = (before, after) -> this.split(before).join(after)
       e.returnValue = false
   )
 
-  # 画面右上の時間表示部分
-  setInterval(()->
-    next = ( ->
-      result = new Date()
-      result.setSeconds(0)
-      result.setMilliseconds(0)
-      min = result.getMinutes()
-      if min < 25
-        result.setMinutes(25)
-      else if(min < 55)
-        result.setMinutes(55)
-      else
-        result.setHours(result.getHours() + 1)
-        result.setMinutes(25)
-      return result
-    )()
-
-    getIsLookingBackTime = ->
-      minutes = new Date().getMinutes()
-      return (25 <= minutes && minutes <= 30) || 55 <= minutes
-
-    now = new Date()
-    rest = next.getTime() - now.getTime()
-    sec = Math.floor(rest / 1000)
-    text = "#{putZero(now.getHours())}:#{putZero(now.getMinutes())}<br>" + 'ふりかえりまで<br>あと ' + (if sec < 60 then sec + '秒' else Math.floor(sec / 60) + '分')
-    document.getElementById('restTime').innerHTML = text
-
-    isLookingBackTime = getIsLookingBackTime()
-    label = document.getElementById('looking-back-time')
-    labelVisible = label.className != 'none'
-    if(isLookingBackTime != labelVisible)
-      label.className = if isLookingBackTime then '' else 'none'
+  setInterval(->
+    updateTimeDisplay()
+    updateLookingBackTimeNotification()
   ,1000)
 )()
