@@ -1,3 +1,9 @@
+###
+note
+  Element: DOM。HTMLElement。
+  View: 概念的なビュー。DOM操作する。
+###
+
 String.prototype.replaceAll = (before, after) -> this.split(before).join(after)
 
 (() ->
