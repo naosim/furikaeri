@@ -16,24 +16,24 @@ String.prototype.replaceAll = (before, after) -> this.split(before).join(after)
     doneButtonId = (h, m) -> "doneButtonId_#{key(h, m)}"
 
     # views
-    table = document.getElementsByTagName('table')[0]
-    visibleAllButton = document.getElementById('visibleAllButton')
-    visibleNowButton = document.getElementById('visibleNowButton')
-    getContentTextArea = (h, m) -> document.getElementById(contentId(h, m))
+    tableElement = document.getElementsByTagName('table')[0]
+    visibleAllButtonElement = document.getElementById('visibleAllButton')
+    visibleNowButtonElement = document.getElementById('visibleNowButton')
+    getContentTextAreaElement = (h, m) -> document.getElementById(contentId(h, m))
     getRow = (h, m) ->
       return {
         setVisible: (visible) ->
           document.getElementById(rowId(h, m)).style['display'] = if visible then 'block' else 'none'
       }
     getDoneButton = (h, m) ->
-      button = document.getElementById(doneButtonId(h, m))
-      pomoImage = document.getElementById(doneButtonId(h, m)).querySelector('img')
-      isDone = (pomoImage) -> pomoImage.className.indexOf('not-done') == -1
+      buttonElement = document.getElementById(doneButtonId(h, m))
+      pomoImageElement = document.getElementById(doneButtonId(h, m)).querySelector('img')
+      isDone = (pomoImageElement) -> pomoImageElement.className.indexOf('not-done') == -1
       return {
         init: ->
-          button.addEventListener('click',() => this.setDone(!this.isDone()))
-        isDone:-> isDone(pomoImage)
-        setDone: (done) -> pomoImage.className = if done then 'pomo' else 'pomo not-done'
+          buttonElement.addEventListener('click',() => this.setDone(!this.isDone()))
+        isDone:-> isDone(pomoImageElement)
+        setDone: (done) -> pomoImageElement.className = if done then 'pomo' else 'pomo not-done'
       }
 
     init = ->
@@ -48,15 +48,15 @@ String.prototype.replaceAll = (before, after) -> this.split(before).join(after)
           .replaceAll('$$content$$', "<textarea id=\"#{contentId(h, m)}\"></textarea>")
           .replaceAll('$$doneButtonId$$', doneButtonId(h, m))
       )
-      table.innerHTML = tableRows
+      tableElement.innerHTML = tableRows
       forInterval((h, m) -> getDoneButton(h, m).init())
-      visibleAllButton.addEventListener('click', () => this.visibleAll())
-      visibleNowButton.addEventListener('click', () => this.optVisible())
+      visibleAllButtonElement.addEventListener('click', () => this.visibleAll())
+      visibleNowButtonElement.addEventListener('click', () => this.optVisible())
 
     setData = (dataList) ->
       forInterval((h, m) ->
         data = dataList[key(h, m)]
-        getContentTextArea(h, m).value = if data then data.content || '' else ''
+        getContentTextAreaElement(h, m).value = if data then data.content || '' else ''
         getDoneButton(h, m).setDone(if data then data.isDone else false)
       )
 
@@ -64,7 +64,7 @@ String.prototype.replaceAll = (before, after) -> this.split(before).join(after)
       result = {}
       forInterval((h, m) ->
         result[key(h, m)] = {
-          content: getContentTextArea(h, m).value
+          content: getContentTextAreaElement(h, m).value
           isDone: getDoneButton(h, m).isDone()
         }
       )
@@ -75,14 +75,14 @@ String.prototype.replaceAll = (before, after) -> this.split(before).join(after)
       date = new Date()
       isNow = (h) -> date.getHours() - 1 <= h && h <= date.getHours() + 1
       forInterval((h, m) -> getRow(h, m).setVisible(isNow(h)))
-      visibleAllButton.style['display'] = 'block'
-      visibleNowButton.style['display'] = 'none'
+      visibleAllButtonElement.style['display'] = 'block'
+      visibleNowButtonElement.style['display'] = 'none'
 
     # すべて時間を表示する
     visibleAll = ->
       forInterval((h, m) -> getRow(h, m).setVisible(true))
-      visibleAllButton.style['display'] = 'none'
-      visibleNowButton.style['display'] = 'block'
+      visibleAllButtonElement.style['display'] = 'none'
+      visibleNowButtonElement.style['display'] = 'block'
 
     # public methods
     return {
@@ -129,8 +129,8 @@ String.prototype.replaceAll = (before, after) -> this.split(before).join(after)
       minutes = new Date().getMinutes()
       return (25 <= minutes && minutes <= 30) || 55 <= minutes
     isLookingBackTime = getIsLookingBackTime()
-    label = document.getElementById('looking-back-time')
-    labelVisible = label.className != 'none'
+    lookingBackTimeLabelElement = document.getElementById('looking-back-time')
+    labelVisible = lookingBackTimeLabelElement.className != 'none'
     if(isLookingBackTime != labelVisible)
       label.className = if isLookingBackTime then '' else 'none'
 
