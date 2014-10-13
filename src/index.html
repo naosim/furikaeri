@@ -1,5 +1,5 @@
 <!doctype html>
-<meta name="viewport" content="width=480,user-scalable=no">
+<meta name="viewport" content="width=620,user-scalable=no">
 <meta charset="utf-8">
 <title>Looking Back</title>
 <style>
@@ -20,6 +20,7 @@ td {
   border-color: #ccc;
   border-width: 1px;
   font-weight: bold;
+  text-align: center;
 }
 
 td.time {
@@ -27,6 +28,7 @@ td.time {
 }
 
 h1 {
+  width: 100%;
   font-size: 24px;
   padding:12px;
   padding-left: 24px;
@@ -38,6 +40,8 @@ h1 {
   border-style: hidden hidden solid;
   border-width: 1px;
   border-color: #c20;
+  vertical-align: middle;
+  position: fixed;
 }
 
 button {
@@ -46,6 +50,13 @@ button {
   padding-left: 24px;
   padding-right: 24px;
   margin: 4px;
+  font-size: 14px;
+  background: #f0f0f0;
+  -webkit-border-radius: 4px;
+  border-top: 1px solid #eee;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  border-left: 1px solid #eee;
 }
 
 b {
@@ -72,9 +83,10 @@ footer a {
 
 .main {
   margin: auto;
+  margin-top: 64px;
   padding: 24px;
   padding-top: 0px;
-  width:460px;
+  width:480px;
 }
 
 textarea {
@@ -100,25 +112,47 @@ textarea {
   border-width: 1px;
   border-color: #d31;
 }
+td.done {
+  padding: 12px;
+  text-align: center;
+}
+.pomo {
+  width: 64px;
+}
+.not-done {
+  opacity: 0.2;
+}
+#looking-back-time {
+  background: #ff0;
+  color: #333;
+  -webkit-border-radius: 4px;
+  padding: 8px;
+  margin-left: 4px;
+  font-size: 18px;
+}
+.none {
+  opacity: 0.0;
+}
 </style>
 <body>
-  <h1>Looking Back<div id="restTime"></div></h1>
+  <h1>ポモドノート<span id="looking-back-time" class="none">ふりかえりタイムです！</span><div id="restTime"></div></h1>
 
   <div class="main">
     <div class="description"><br><b>30分</b>ごとに<br><b>記録</b>と<b>ふりかえり</b>をしましょう。</div>
     <table></table>
     <button id="visibleAllButton">すべての時間を表示</button>
     <button id="visibleNowButton">現在のみ表示</button>
-    <button id="saveButton">save</button> ※Ctrl + S でもセーブできます。
+    <button id="allClearButton">オールクリア</button><br>
+    <button id="saveButton">セーブ</button> ※Ctrl + S でもセーブ可能
   </div>
 
   <footer>
-    Sprint 0 | Source Code: <a href="https://github.com/naosim/furikaeri" target="_blank">github</a>
+    Sprint 2 | Source Code: <a href="https://github.com/naosim/furikaeri" target="_blank">github</a>
   </footer>
 </body>
 
 <script id="rowTemplate" type="text/html">
-  <tr id="$$rowId$$"><td class="time">$$time$$</td><td>$$content$$</td></tr>
+  <tr id="$$rowId$$"><td class="time">$$time$$</td><td>$$content$$</td><td class="done"><button id="$$doneButtonId$$"><img class="pomo not-done" src="img/pomo.svg"/><br>やった</button></td></tr>
 </script>
 
 <script src="js/main.js"></script>
