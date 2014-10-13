@@ -112,6 +112,10 @@ String.prototype.replaceAll = (before, after) -> this.split(before).join(after)
   tableRowsView.setData(dataIO.load())
   tableRowsView.optVisible()
   startAutoSave(3 * 60 * 1000)
+  allClear = () ->
+    tableRowsView.setData({})
+    save()
+  document.getElementById('allClearButton').addEventListener('click', allClear)
 
   # ctrl + s -> save
   document.addEventListener('keydown', (e) ->
