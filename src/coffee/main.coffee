@@ -147,7 +147,7 @@ String.prototype.replaceAll = (before, after) -> this.split(before).join(after)
 
     getIsLookingBackTime = ->
       minutes = new Date().getMinutes()
-      return (38 <= minutes && minutes <= 39) || 55 <= minutes
+      return (25 <= minutes && minutes <= 30) || 55 <= minutes
 
     now = new Date()
     rest = next.getTime() - now.getTime()
